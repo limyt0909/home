@@ -1,4 +1,3 @@
-
 const express = require("express"); // express module을 import한다는 의미
 const ejs = require("ejs");
 const app = express(); // Express server의 시작
@@ -18,3 +17,30 @@ app.listen(3000, () => {
 app.get("/", (req, res) => {
   res.render("index");
 });
+
+// function추가
+app.get("/about", (req, res) => {
+  res.render("about");
+});
+
+
+
+app.get("/data", (req, res) => {
+  const test = {
+    title: "Test",
+    items: ["one", "two", "three"]
+  };
+  res.render("data", {model: test});
+
+});
+
+const sqlite3 = require("sqlite3").verbose();
+
+const db_name = path.join(__dirname, "data", "apptest.db");
+const db = new sqlite3.Database(db_name, err => {
+  if(err) {
+    return console.error(err.message);
+  }
+  console.log("Successful connection to the database 'apptest.db'");
+});
+
